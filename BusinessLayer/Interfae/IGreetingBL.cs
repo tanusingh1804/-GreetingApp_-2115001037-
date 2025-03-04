@@ -2,6 +2,6 @@
 {
     public interface IGreetingBL
     {
-        string GetGreeting(string? firstName, string? lastName);
+        string GetGreeting();
     }
 }
