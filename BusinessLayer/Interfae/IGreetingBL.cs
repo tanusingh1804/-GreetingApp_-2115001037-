@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessLayer.Interfae
+﻿namespace BusinessLayer.Interface
 {
-    public class IGreetingBL
+    public interface IGreetingBL
     {
+        string GetGreeting();
     }
 }

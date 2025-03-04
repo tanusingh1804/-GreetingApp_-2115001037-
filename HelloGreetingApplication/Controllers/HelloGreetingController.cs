@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BusinessLayer.Interface;
 using ModelLayer.Model;
+using BusinessLayer.Interface;
 
 namespace HelloGreetingApp.Controllers
 {
@@ -9,73 +11,25 @@ namespace HelloGreetingApp.Controllers
     public class HelloGreetingAppController : ControllerBase
     {
         private readonly ILogger<HelloGreetingAppController> _logger;
+        private readonly IGreetingBL _greetingBL;
 
-        public HelloGreetingAppController(ILogger<HelloGreetingAppController> logger)
+        public HelloGreetingAppController(ILogger<HelloGreetingAppController> logger, IGreetingBL greetingBL)
         {
             _logger = logger;
+            _greetingBL = greetingBL;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
             _logger.LogInformation("GET method called.");
-            var responseModel = new ResponseModel<string>
-            {
-                Success = true,
-                Message = "Hello to greeting API EndPoint",
-                Data = "Hello, World!"
-            };
-            return Ok(responseModel);
-        }
+            var greetingMessage = _greetingBL.GetGreeting(); // Calling Service Layer
 
-        [HttpPost]
-        public IActionResult Post([FromBody] RequestModel requestModel)
-        {
-            _logger.LogInformation("POST method called with Key: {Key} and Value: {Value}", requestModel.Key, requestModel.Value);
             var responseModel = new ResponseModel<string>
             {
                 Success = true,
-                Message = "Request Received Successfully",
-                Data = $"Key: {requestModel.Key}, Value: {requestModel.Value}"
-            };
-            return Ok(responseModel);
-        }
-
-        [HttpPut]
-        public IActionResult Put([FromBody] RequestModel requestModel)
-        {
-            _logger.LogInformation("PUT method called with Key: {Key} and Value: {Value}", requestModel.Key, requestModel.Value);
-            var responseModel = new ResponseModel<string>
-            {
-                Success = true,
-                Message = "Request Updated Successfully",
-                Data = $"Key: {requestModel.Key}, Value: {requestModel.Value}"
-            };
-            return Ok(responseModel);
-        }
-
-        [HttpPatch]
-        public IActionResult Patch([FromBody] RequestModel requestModel)
-        {
-            _logger.LogInformation("PATCH method called with Key: {Key} and Value: {Value}", requestModel.Key, requestModel.Value);
-            var responseModel = new ResponseModel<string>
-            {
-                Success = true,
-                Message = "Request Updated Successfully",
-                Data = $"Key: {requestModel.Key}, Value: {requestModel.Value}"
-            };
-            return Ok(responseModel);
-        }
-
-        [HttpDelete]
-        public IActionResult Delete([FromBody] RequestModel requestModel)
-        {
-            _logger.LogInformation("DELETE method called with Key: {Key}", requestModel.Key);
-            var responseModel = new ResponseModel<string>
-            {
-                Success = true,
-                Message = "Request Deleted Successfully",
-                Data = $"Deleted Key: {requestModel.Key}"
+                Message = "Greeting Message Retrieved",
+                Data = greetingMessage
             };
             return Ok(responseModel);
         }
