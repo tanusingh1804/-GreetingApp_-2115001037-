@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BusinessLayer.Interface;
 using ModelLayer.Model;
-using BusinessLayer.Interface;
 
 namespace HelloGreetingApp.Controllers
 {
@@ -19,11 +18,11 @@ namespace HelloGreetingApp.Controllers
             _greetingBL = greetingBL;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("greet")]
+        public IActionResult GetGreeting([FromQuery] string? firstName, [FromQuery] string? lastName)
         {
-            _logger.LogInformation("GET method called.");
-            var greetingMessage = _greetingBL.GetGreeting(); // Calling Service Layer
+            _logger.LogInformation("GET Greeting method called with FirstName: {FirstName}, LastName: {LastName}", firstName, lastName);
+            var greetingMessage = _greetingBL.GetGreeting(firstName, lastName);
 
             var responseModel = new ResponseModel<string>
             {
