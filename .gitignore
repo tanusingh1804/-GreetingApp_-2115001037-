@@ -1,5 +1,11 @@
 .vs
+<<<<<<< HEAD
+/BusinessLayer/obj/
+/HelloGreetingApplication/obj/
+/RepositoryLayer/obj/
+=======
 obj/
 bin/
 
+>>>>>>> UC3
 
