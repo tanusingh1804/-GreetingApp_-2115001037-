@@ -1,11 +1,8 @@
 .vs
-<<<<<<< HEAD
 /BusinessLayer/obj/
 /HelloGreetingApplication/obj/
 /RepositoryLayer/obj/
-=======
 obj/
 bin/
-
->>>>>>> UC3
-
+*.cache
+*.csproj.AssemblyReference.cache
